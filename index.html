@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1, user-scalable=no">
+<meta name="theme-color" content="#14161A">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="BARBELL">
+<meta name="mobile-web-app-capable" content="yes">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icons/icon-180.png">
+<link rel="icon" href="icons/icon-192.png">
+<title>BARBELL — трекер тренировок</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div id="app"></div>
+
+<!-- Onboarding -->
+<div id="onboarding" class="overlay hidden">
+  <div class="onb-card">
+    <div class="onb-progress">
+      <span class="dot active" data-step="0"></span>
+      <span class="dot" data-step="1"></span>
+      <span class="dot" data-step="2"></span>
+      <span class="dot" data-step="3"></span>
+    </div>
+
+    <div class="onb-step" data-step="0">
+      <p class="eyebrow">Шаг 1 / 4</p>
+      <h1>Кто в зале?</h1>
+      <p class="onb-sub">Это влияет только на подборку готовых планов — все планы можно менять как угодно.</p>
+      <div class="choice-grid two">
+        <button class="choice-tile" data-field="gender" data-value="f">
+          <span class="tile-glyph">♀</span><span>Девушка</span>
+        </button>
+        <button class="choice-tile" data-field="gender" data-value="m">
+          <span class="tile-glyph">♂</span><span>Парень</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="onb-step hidden" data-step="1">
+      <p class="eyebrow">Шаг 2 / 4</p>
+      <h1>Уровень</h1>
+      <p class="onb-sub">Честная оценка — так план будет адекватным.</p>
+      <div class="choice-grid one">
+        <button class="choice-tile row" data-field="level" data-value="beginner"><span>Новичок</span><small>0–6 месяцев тренировок</small></button>
+        <button class="choice-tile row" data-field="level" data-value="intermediate"><span>Средний</span><small>полгода – 2 года</small></button>
+        <button class="choice-tile row" data-field="level" data-value="advanced"><span>Продвинутый</span><small>2+ года стажа</small></button>
+      </div>
+    </div>
+
+    <div class="onb-step hidden" data-step="2">
+      <p class="eyebrow">Шаг 3 / 4</p>
+      <h1>Периодичность</h1>
+      <p class="onb-sub">Отметь дни силовых и дни кардио. Это можно поменять в любой момент в настройках.</p>
+      <div class="sched-block">
+        <div class="sched-label">Силовые</div>
+        <div class="weekday-picker" id="pick-training"></div>
+      </div>
+      <div class="sched-block">
+        <div class="sched-label">Кардио</div>
+        <div class="weekday-picker" id="pick-cardio"></div>
+      </div>
+    </div>
+
+    <div class="onb-step hidden" data-step="3">
+      <p class="eyebrow">Шаг 4 / 4</p>
+      <h1>План тренировок</h1>
+      <p class="onb-sub">Собери свой с нуля или возьми готовый — на основе методик известных силовых, бодибилдинг- и кроссфит-программ. Список упражнений всё равно можно менять.</p>
+      <div class="template-list" id="template-list"></div>
+      <button class="choice-tile row plain" data-template="custom">
+        <span>Свой план с нуля</span><small>Пустое расписание — добавляй упражнения сам</small>
+      </button>
+    </div>
+
+    <div class="onb-nav">
+      <button id="onb-back" class="btn ghost hidden">Назад</button>
+      <button id="onb-next" class="btn primary" disabled>Далее</button>
+    </div>
+  </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
