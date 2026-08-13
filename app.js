@@ -156,6 +156,10 @@ const EXERCISE_CATALOG = {
     {name:'Разведение гантелей лёжа', fields:{weight:1,reps:1,sets:1}},
     {name:'Отжимания на брусьях', fields:{reps:1,sets:1}},
     {name:'Жим в тренажёре Смита', fields:{weight:1,reps:1,sets:1}},
+    {name:'Отжимания от пола', fields:{reps:1,sets:1}},
+    {name:'Сведение рук в кроссовере', fields:{weight:1,reps:1,sets:1}},
+    {name:'Жим гантелей лёжа', fields:{weight:1,reps:1,sets:1}},
+    {name:'Пуловер с гантелью', fields:{weight:1,reps:1,sets:1}},
   ],
   'Спина': [
     {name:'Становая тяга', fields:{weight:1,reps:1,sets:1}},
@@ -163,12 +167,19 @@ const EXERCISE_CATALOG = {
     {name:'Тяга штанги в наклоне', fields:{weight:1,reps:1,sets:1}},
     {name:'Тяга верхнего блока', fields:{weight:1,reps:1,sets:1}},
     {name:'Тяга гантели одной рукой', fields:{weight:1,reps:1,sets:1}},
+    {name:'Тяга нижнего блока сидя', fields:{weight:1,reps:1,sets:1}},
+    {name:'Гиперэкстензия', fields:{weight:1,reps:1,sets:1}},
+    {name:'Шраги со штангой', fields:{weight:1,reps:1,sets:1}},
+    {name:'Тяга Т-грифа', fields:{weight:1,reps:1,sets:1}},
   ],
   'Плечи': [
     {name:'Жим стоя', fields:{weight:1,reps:1,sets:1}},
     {name:'Жим гантелей сидя', fields:{weight:1,reps:1,sets:1}},
     {name:'Разведение гантелей в стороны', fields:{weight:1,reps:1,sets:1}},
     {name:'Махи гантелями в наклоне', fields:{weight:1,reps:1,sets:1}},
+    {name:'Жим Арнольда', fields:{weight:1,reps:1,sets:1}},
+    {name:'Тяга штанги к подбородку', fields:{weight:1,reps:1,sets:1}},
+    {name:'Разведение в кроссовере на плечи', fields:{weight:1,reps:1,sets:1}},
   ],
   'Руки': [
     {name:'Подъём штанги на бицепс', fields:{weight:1,reps:1,sets:1}},
@@ -176,6 +187,10 @@ const EXERCISE_CATALOG = {
     {name:'Французский жим лёжа', fields:{weight:1,reps:1,sets:1}},
     {name:'Разгибания на трицепс на блоке', fields:{weight:1,reps:1,sets:1}},
     {name:'Отжимания узким хватом', fields:{reps:1,sets:1}},
+    {name:'Молотковые сгибания с гантелями', fields:{weight:1,reps:1,sets:1}},
+    {name:'Сгибания на бицепс на блоке', fields:{weight:1,reps:1,sets:1}},
+    {name:'Отжимания на брусьях (трицепс)', fields:{reps:1,sets:1}},
+    {name:'Разгибание одной рукой из-за головы', fields:{weight:1,reps:1,sets:1}},
   ],
   'Ноги': [
     {name:'Приседания со штангой', fields:{weight:1,reps:1,sets:1}},
@@ -184,18 +199,27 @@ const EXERCISE_CATALOG = {
     {name:'Выпады с гантелями', fields:{weight:1,reps:1,sets:1}},
     {name:'Сгибание ног в тренажёре', fields:{weight:1,reps:1,sets:1}},
     {name:'Подъём на носки стоя', fields:{weight:1,reps:1,sets:1}},
+    {name:'Разгибание ног в тренажёре', fields:{weight:1,reps:1,sets:1}},
+    {name:'Приседания со штангой над головой', fields:{weight:1,reps:1,sets:1}},
+    {name:'Болгарские выпады', fields:{weight:1,reps:1,sets:1}},
+    {name:'Жим ногами узкой постановкой', fields:{weight:1,reps:1,sets:1}},
   ],
   'Ягодицы': [
     {name:'Ягодичный мост со штангой', fields:{weight:1,reps:1,sets:1}},
     {name:'Приседания сумо', fields:{weight:1,reps:1,sets:1}},
     {name:'Отведение ноги в кроссовере', fields:{weight:1,reps:1,sets:1}},
     {name:'Тяга на прямых ногах', fields:{weight:1,reps:1,sets:1}},
+    {name:'Ходьба с резинкой', fields:{reps:1,sets:1}},
+    {name:'Гиперэкстензия с акцентом на ягодицы', fields:{weight:1,reps:1,sets:1}},
   ],
   'Кор': [
     {name:'Планка', fields:{duration:1,sets:1}},
     {name:'Боковая планка', fields:{duration:1,sets:1}},
     {name:'Скручивания', fields:{reps:1,sets:1}},
     {name:'Подъём ног в висе', fields:{reps:1,sets:1}},
+    {name:'Скручивания на блоке', fields:{weight:1,reps:1,sets:1}},
+    {name:'Русские скручивания', fields:{reps:1,sets:1}},
+    {name:'Велосипед на пресс', fields:{reps:1,sets:1}},
   ],
   'Кардио': [
     {name:'Бег', fields:{duration:1,distance:1}},
@@ -203,12 +227,17 @@ const EXERCISE_CATALOG = {
     {name:'Скакалка', fields:{duration:1,reps:1}},
     {name:'Гребля', fields:{duration:1,distance:1}},
     {name:'Плавание', fields:{duration:1,distance:1}},
+    {name:'Эллипсоид', fields:{duration:1,distance:1}},
+    {name:'Ходьба в гору (наклон)', fields:{duration:1,distance:1,height:1}},
   ],
   'Функциональные': [
     {name:'Берпи', fields:{reps:1,sets:1,duration:1}},
     {name:'Взятие штанги на грудь', fields:{weight:1,reps:1,sets:1}},
     {name:'Толчок гири', fields:{weight:1,reps:1,sets:1}},
     {name:'Прыжки на тумбу', fields:{reps:1,sets:1,height:1}},
+    {name:'Рывок гири', fields:{weight:1,reps:1,sets:1}},
+    {name:'Броски мяча в стену', fields:{weight:1,reps:1,sets:1}},
+    {name:'Ходьба фермера', fields:{weight:1,duration:1,sets:1}},
   ],
 };
 
@@ -253,13 +282,14 @@ function ensureProfiles(){
 }
 
 /* ---------------- Режим тренера (на уровне устройства, не привязан к профилю) ----------------
-   Единый пароль тренера — один на всё приложение (не задаётся пользователем).
-   В коде хранится только его SHA-256 хэш, не сам пароль.
+   Пароль тренера нигде не хранится в открытом виде — сохраняется только SHA-256 хэш.
    Это защита «от чужого пальца», а не криптографическая защита от того, кто открыл код в консоли. */
+const TRAINER_KEY = 'barbell_trainer_v1';
 const TRAINER_DRAFTS_KEY = 'barbell_trainer_drafts_v1';
-const TRAINER_PASS_HASH = '83eb7f4614195bb65c53bb72edd6fcf8270706aae25b4b5a8b69e6b159a59ca';
 let trainerUnlocked = sessionStorage.getItem('barbell_trainer_unlocked')==='1';
 
+function loadTrainerAuth(){ try{ return JSON.parse(localStorage.getItem(TRAINER_KEY)) || {passHash:null}; }catch(e){ return {passHash:null}; } }
+function saveTrainerAuth(a){ localStorage.setItem(TRAINER_KEY, JSON.stringify(a)); }
 async function sha256Hex(text){
   const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(text));
   return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
@@ -1214,6 +1244,14 @@ function openExerciseEditor(exId, weekday){
 /* ---------------- Settings ---------------- */
 /* ---------------- Режим тренера: раздел настроек ---------------- */
 function renderTrainerSection(){
+  const auth = loadTrainerAuth();
+  if(!auth.passHash){
+    return `<div class="card settings-section">
+      <h3>Режим тренера</h3>
+      <p class="trainer-locked-note">Составляй программы для учеников и делись ими кодом с паролем. Чтобы режим тренера не включил кто попало, задай отдельный пароль для него.</p>
+      <button class="btn ghost block" id="trainer-setup">Настроить режим тренера</button>
+    </div>`;
+  }
   if(!trainerUnlocked){
     return `<div class="card settings-section">
       <h3>Режим тренера</h3>
