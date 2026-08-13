@@ -253,14 +253,13 @@ function ensureProfiles(){
 }
 
 /* ---------------- Режим тренера (на уровне устройства, не привязан к профилю) ----------------
-   Пароль тренера нигде не хранится в открытом виде — сохраняется только SHA-256 хэш.
+   Единый пароль тренера — один на всё приложение (не задаётся пользователем).
+   В коде хранится только его SHA-256 хэш, не сам пароль.
    Это защита «от чужого пальца», а не криптографическая защита от того, кто открыл код в консоли. */
-const TRAINER_KEY = 'barbell_trainer_v1';
 const TRAINER_DRAFTS_KEY = 'barbell_trainer_drafts_v1';
+const TRAINER_PASS_HASH = '83eb7f4614195bb65c53bb72edd6fcf8270706aae25b4b5a8b69e6b159a59ca';
 let trainerUnlocked = sessionStorage.getItem('barbell_trainer_unlocked')==='1';
 
-function loadTrainerAuth(){ try{ return JSON.parse(localStorage.getItem(TRAINER_KEY)) || {passHash:null}; }catch(e){ return {passHash:null}; } }
-function saveTrainerAuth(a){ localStorage.setItem(TRAINER_KEY, JSON.stringify(a)); }
 async function sha256Hex(text){
   const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(text));
   return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
@@ -1215,14 +1214,6 @@ function openExerciseEditor(exId, weekday){
 /* ---------------- Settings ---------------- */
 /* ---------------- Режим тренера: раздел настроек ---------------- */
 function renderTrainerSection(){
-  const auth = loadTrainerAuth();
-  if(!auth.passHash){
-    return `<div class="card settings-section">
-      <h3>Режим тренера</h3>
-      <p class="trainer-locked-note">Составляй программы для учеников и делись ими кодом с паролем. Чтобы режим тренера не включил кто попало, задай отдельный пароль для него.</p>
-      <button class="btn ghost block" id="trainer-setup">Настроить режим тренера</button>
-    </div>`;
-  }
   if(!trainerUnlocked){
     return `<div class="card settings-section">
       <h3>Режим тренера</h3>
