@@ -156,10 +156,6 @@ const EXERCISE_CATALOG = {
     {name:'Разведение гантелей лёжа', fields:{weight:1,reps:1,sets:1}},
     {name:'Отжимания на брусьях', fields:{reps:1,sets:1}},
     {name:'Жим в тренажёре Смита', fields:{weight:1,reps:1,sets:1}},
-    {name:'Отжимания от пола', fields:{reps:1,sets:1}},
-    {name:'Сведение рук в кроссовере', fields:{weight:1,reps:1,sets:1}},
-    {name:'Жим гантелей лёжа', fields:{weight:1,reps:1,sets:1}},
-    {name:'Пуловер с гантелью', fields:{weight:1,reps:1,sets:1}},
   ],
   'Спина': [
     {name:'Становая тяга', fields:{weight:1,reps:1,sets:1}},
@@ -167,19 +163,12 @@ const EXERCISE_CATALOG = {
     {name:'Тяга штанги в наклоне', fields:{weight:1,reps:1,sets:1}},
     {name:'Тяга верхнего блока', fields:{weight:1,reps:1,sets:1}},
     {name:'Тяга гантели одной рукой', fields:{weight:1,reps:1,sets:1}},
-    {name:'Тяга нижнего блока сидя', fields:{weight:1,reps:1,sets:1}},
-    {name:'Гиперэкстензия', fields:{weight:1,reps:1,sets:1}},
-    {name:'Шраги со штангой', fields:{weight:1,reps:1,sets:1}},
-    {name:'Тяга Т-грифа', fields:{weight:1,reps:1,sets:1}},
   ],
   'Плечи': [
     {name:'Жим стоя', fields:{weight:1,reps:1,sets:1}},
     {name:'Жим гантелей сидя', fields:{weight:1,reps:1,sets:1}},
     {name:'Разведение гантелей в стороны', fields:{weight:1,reps:1,sets:1}},
     {name:'Махи гантелями в наклоне', fields:{weight:1,reps:1,sets:1}},
-    {name:'Жим Арнольда', fields:{weight:1,reps:1,sets:1}},
-    {name:'Тяга штанги к подбородку', fields:{weight:1,reps:1,sets:1}},
-    {name:'Разведение в кроссовере на плечи', fields:{weight:1,reps:1,sets:1}},
   ],
   'Руки': [
     {name:'Подъём штанги на бицепс', fields:{weight:1,reps:1,sets:1}},
@@ -187,10 +176,6 @@ const EXERCISE_CATALOG = {
     {name:'Французский жим лёжа', fields:{weight:1,reps:1,sets:1}},
     {name:'Разгибания на трицепс на блоке', fields:{weight:1,reps:1,sets:1}},
     {name:'Отжимания узким хватом', fields:{reps:1,sets:1}},
-    {name:'Молотковые сгибания с гантелями', fields:{weight:1,reps:1,sets:1}},
-    {name:'Сгибания на бицепс на блоке', fields:{weight:1,reps:1,sets:1}},
-    {name:'Отжимания на брусьях (трицепс)', fields:{reps:1,sets:1}},
-    {name:'Разгибание одной рукой из-за головы', fields:{weight:1,reps:1,sets:1}},
   ],
   'Ноги': [
     {name:'Приседания со штангой', fields:{weight:1,reps:1,sets:1}},
@@ -199,27 +184,18 @@ const EXERCISE_CATALOG = {
     {name:'Выпады с гантелями', fields:{weight:1,reps:1,sets:1}},
     {name:'Сгибание ног в тренажёре', fields:{weight:1,reps:1,sets:1}},
     {name:'Подъём на носки стоя', fields:{weight:1,reps:1,sets:1}},
-    {name:'Разгибание ног в тренажёре', fields:{weight:1,reps:1,sets:1}},
-    {name:'Приседания со штангой над головой', fields:{weight:1,reps:1,sets:1}},
-    {name:'Болгарские выпады', fields:{weight:1,reps:1,sets:1}},
-    {name:'Жим ногами узкой постановкой', fields:{weight:1,reps:1,sets:1}},
   ],
   'Ягодицы': [
     {name:'Ягодичный мост со штангой', fields:{weight:1,reps:1,sets:1}},
     {name:'Приседания сумо', fields:{weight:1,reps:1,sets:1}},
     {name:'Отведение ноги в кроссовере', fields:{weight:1,reps:1,sets:1}},
     {name:'Тяга на прямых ногах', fields:{weight:1,reps:1,sets:1}},
-    {name:'Ходьба с резинкой', fields:{reps:1,sets:1}},
-    {name:'Гиперэкстензия с акцентом на ягодицы', fields:{weight:1,reps:1,sets:1}},
   ],
   'Кор': [
     {name:'Планка', fields:{duration:1,sets:1}},
     {name:'Боковая планка', fields:{duration:1,sets:1}},
     {name:'Скручивания', fields:{reps:1,sets:1}},
     {name:'Подъём ног в висе', fields:{reps:1,sets:1}},
-    {name:'Скручивания на блоке', fields:{weight:1,reps:1,sets:1}},
-    {name:'Русские скручивания', fields:{reps:1,sets:1}},
-    {name:'Велосипед на пресс', fields:{reps:1,sets:1}},
   ],
   'Кардио': [
     {name:'Бег', fields:{duration:1,distance:1}},
@@ -227,17 +203,12 @@ const EXERCISE_CATALOG = {
     {name:'Скакалка', fields:{duration:1,reps:1}},
     {name:'Гребля', fields:{duration:1,distance:1}},
     {name:'Плавание', fields:{duration:1,distance:1}},
-    {name:'Эллипсоид', fields:{duration:1,distance:1}},
-    {name:'Ходьба в гору (наклон)', fields:{duration:1,distance:1,height:1}},
   ],
   'Функциональные': [
     {name:'Берпи', fields:{reps:1,sets:1,duration:1}},
     {name:'Взятие штанги на грудь', fields:{weight:1,reps:1,sets:1}},
     {name:'Толчок гири', fields:{weight:1,reps:1,sets:1}},
     {name:'Прыжки на тумбу', fields:{reps:1,sets:1,height:1}},
-    {name:'Рывок гири', fields:{weight:1,reps:1,sets:1}},
-    {name:'Броски мяча в стену', fields:{weight:1,reps:1,sets:1}},
-    {name:'Ходьба фермера', fields:{weight:1,duration:1,sets:1}},
   ],
 };
 
@@ -282,14 +253,13 @@ function ensureProfiles(){
 }
 
 /* ---------------- Режим тренера (на уровне устройства, не привязан к профилю) ----------------
-   Пароль тренера нигде не хранится в открытом виде — сохраняется только SHA-256 хэш.
+   Единый пароль тренера — один на всё приложение (не задаётся пользователем).
+   В коде хранится только его SHA-256 хэш, не сам пароль.
    Это защита «от чужого пальца», а не криптографическая защита от того, кто открыл код в консоли. */
-const TRAINER_KEY = 'barbell_trainer_v1';
 const TRAINER_DRAFTS_KEY = 'barbell_trainer_drafts_v1';
+const TRAINER_PASS_HASH = '83eb7f4614195bb65c53bb72edd6fcf8270706aae25b4b5a8b69e6b159a59ca';
 let trainerUnlocked = sessionStorage.getItem('barbell_trainer_unlocked')==='1';
 
-function loadTrainerAuth(){ try{ return JSON.parse(localStorage.getItem(TRAINER_KEY)) || {passHash:null}; }catch(e){ return {passHash:null}; } }
-function saveTrainerAuth(a){ localStorage.setItem(TRAINER_KEY, JSON.stringify(a)); }
 async function sha256Hex(text){
   const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(text));
   return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
@@ -454,6 +424,31 @@ function buildWeekSummary(ws){
   lines.push(`Тоннаж недели: ${Math.round(weekTonnage(ws)).toLocaleString('ru-RU')} кг`);
   return lines.join('\n');
 }
+function buildTrainerReport(){
+  const today = fromISO(ui.today);
+  const streak = computeStreak();
+  const lines = [`BARBELL · Отчёт для тренера`, `Дата: ${fmtFullDate(today)}`, ''];
+  lines.push(`Программа: ${state.trainerProgram ? state.trainerProgram.name : 'своя'}`);
+  lines.push(`Текущий стрик: ${streak} ${streak===1?'день':'дней'}`);
+  lines.push('');
+  lines.push('Тоннаж по неделям (вес × повторы × подходы):');
+  const thisWeekStart = startOfWeek(today);
+  for(let i=0;i<4;i++){
+    const ws = addDays(thisWeekStart, -7*i);
+    lines.push(`• ${fmtMonthRange(ws)}: ${Math.round(weekTonnage(ws)).toLocaleString('ru-RU')} кг`);
+  }
+  const recIds = Object.keys(state.records||{});
+  if(recIds.length){
+    lines.push('');
+    lines.push('Личные рекорды:');
+    recIds.forEach(id=>{
+      const r = state.records[id];
+      const best = (r.entries||[]).reduce((m,e)=>(m===null||e.value>m)?e.value:m, null);
+      if(best!=null) lines.push(`• ${r.name}: ${best} ${r.unit}`);
+    });
+  }
+  return lines.join('\n');
+}
 
 /* ---------------- Шаринг программы (AES-GCM, защищено паролем) ----------------
    Важное честное уточнение: код защищает саму программу от посторонних, у которых нет пароля.
@@ -481,39 +476,62 @@ function b64ToBuf(b64){
   for(let i=0;i<bin.length;i++) bytes[i]=bin.charCodeAt(i);
   return bytes;
 }
-async function encryptProgram(password, name){
-  const payload = JSON.stringify(buildProgramExportObject(name));
-  const enc = new TextEncoder();
+/* Сжатие payload'а gzip'ом перед шифрованием — заметно укорачивает итоговый код
+   (особенно на программах с кучей упражнений). Поддерживается почти всеми современными
+   браузерами (CompressionStream); если API недоступен — просто шлём как есть. */
+async function gzipBytes(bytes){
+  if(typeof CompressionStream==='undefined') return null;
+  const cs = new CompressionStream('gzip');
+  const writer = cs.writable.getWriter();
+  writer.write(bytes); writer.close();
+  return new Uint8Array(await new Response(cs.readable).arrayBuffer());
+}
+async function gunzipBytes(bytes){
+  const ds = new DecompressionStream('gzip');
+  const writer = ds.writable.getWriter();
+  writer.write(bytes); writer.close();
+  return new Uint8Array(await new Response(ds.readable).arrayBuffer());
+}
+async function encryptPayload(obj, password){
+  const raw = new TextEncoder().encode(JSON.stringify(obj));
+  const gz = await gzipBytes(raw);
+  const data = gz && gz.length < raw.length ? gz : raw;
+  const compressed = data === gz;
   const salt = crypto.getRandomValues(new Uint8Array(16));
   const iv = crypto.getRandomValues(new Uint8Array(12));
-  const keyMaterial = await crypto.subtle.importKey('raw', enc.encode(password), {name:'PBKDF2'}, false, ['deriveKey']);
+  const keyMaterial = await crypto.subtle.importKey('raw', new TextEncoder().encode(password), {name:'PBKDF2'}, false, ['deriveKey']);
   const key = await crypto.subtle.deriveKey({name:'PBKDF2', salt, iterations:150000, hash:'SHA-256'}, keyMaterial, {name:'AES-GCM', length:256}, false, ['encrypt']);
-  const cipher = await crypto.subtle.encrypt({name:'AES-GCM', iv}, key, enc.encode(payload));
+  const cipher = await crypto.subtle.encrypt({name:'AES-GCM', iv}, key, data);
   const bundle = new Uint8Array(salt.length + iv.length + cipher.byteLength);
   bundle.set(salt,0); bundle.set(iv,salt.length); bundle.set(new Uint8Array(cipher), salt.length+iv.length);
-  return 'BARBELL1:' + bufToB64(bundle);
+  return (compressed?'BARBELL2:':'BARBELL1:') + bufToB64(bundle);
 }
-async function encryptDraftProgram(draft, password){
-  const payload = JSON.stringify(buildDraftExportObject(draft));
-  const enc = new TextEncoder();
-  const salt = crypto.getRandomValues(new Uint8Array(16));
-  const iv = crypto.getRandomValues(new Uint8Array(12));
-  const keyMaterial = await crypto.subtle.importKey('raw', enc.encode(password), {name:'PBKDF2'}, false, ['deriveKey']);
-  const key = await crypto.subtle.deriveKey({name:'PBKDF2', salt, iterations:150000, hash:'SHA-256'}, keyMaterial, {name:'AES-GCM', length:256}, false, ['encrypt']);
-  const cipher = await crypto.subtle.encrypt({name:'AES-GCM', iv}, key, enc.encode(payload));
-  const bundle = new Uint8Array(salt.length + iv.length + cipher.byteLength);
-  bundle.set(salt,0); bundle.set(iv,salt.length); bundle.set(new Uint8Array(cipher), salt.length+iv.length);
-  return 'BARBELL1:' + bufToB64(bundle);
-}
-async function decryptProgram(code, password){
-  if(!code.startsWith('BARBELL1:')) throw new Error('bad-format');
+async function decryptPayload(code, password){
+  let compressed;
+  if(code.startsWith('BARBELL2:')) compressed=true;
+  else if(code.startsWith('BARBELL1:')) compressed=false;
+  else throw new Error('bad-format');
   const bytes = b64ToBuf(code.slice(9));
   const salt = bytes.slice(0,16), iv = bytes.slice(16,28), cipher = bytes.slice(28);
-  const enc = new TextEncoder();
-  const keyMaterial = await crypto.subtle.importKey('raw', enc.encode(password), {name:'PBKDF2'}, false, ['deriveKey']);
+  const keyMaterial = await crypto.subtle.importKey('raw', new TextEncoder().encode(password), {name:'PBKDF2'}, false, ['deriveKey']);
   const key = await crypto.subtle.deriveKey({name:'PBKDF2', salt, iterations:150000, hash:'SHA-256'}, keyMaterial, {name:'AES-GCM', length:256}, false, ['decrypt']);
-  const plain = await crypto.subtle.decrypt({name:'AES-GCM', iv}, key, cipher);
-  return JSON.parse(new TextDecoder().decode(plain));
+  const plainBytes = new Uint8Array(await crypto.subtle.decrypt({name:'AES-GCM', iv}, key, cipher));
+  const jsonBytes = compressed ? await gunzipBytes(plainBytes) : plainBytes;
+  return JSON.parse(new TextDecoder().decode(jsonBytes));
+}
+async function encryptProgram(password, name){
+  return encryptPayload(buildProgramExportObject(name), password);
+}
+async function encryptDraftProgram(draft, password){
+  return encryptPayload(buildDraftExportObject(draft), password);
+}
+async function decryptProgram(code, password){
+  return decryptPayload(code, password);
+}
+/* Ссылка, которая открывает приложение и сразу подставляет код в поле импорта —
+   пароль в ссылку не зашивается (пароль сообщается получателю отдельно). */
+function buildProgramLink(code){
+  return `${location.origin}${location.pathname}#p=${encodeURIComponent(code)}`;
 }
 function applyImportedProgram(data){
   const idMap={};
@@ -629,6 +647,7 @@ let ui = {
   viewDate: toISO(new Date()),
   weekStart: startOfWeek(new Date()),
 };
+let settingsPlanOpen = false; // свернута ли карточка "Готовый план" в настройках
 
 /* ================= ONBOARDING ================= */
 let obState = { step:0, gender:null, level:null, training:[], cardio:[], template:null };
@@ -727,7 +746,9 @@ function finishOnboarding(){
   state.onboarded=true;
   save();
   document.getElementById('onboarding').classList.add('hidden');
+  if(pendingImportCode){ ui.tab='settings'; }
   renderApp();
+  if(pendingImportCode) showToast('Код программы получен по ссылке — введи пароль ниже');
 }
 
 function applyTemplateToSchedule(templateId){
@@ -758,7 +779,6 @@ function renderApp(){
     <div class="topbar">
       <div><div class="brand">BAR<b>BELL</b></div><div class="sub">${profileSummary()}${computeStreak()>0?` · 🔥 ${computeStreak()}`:''}</div></div>
     </div>
-    ${state.trainerProgram ? `<div class="trainer-badge">📋 Программа тренера: <b>${state.trainerProgram.name}</b></div>` : ''}
     <div id="tab-content"></div>
     <div class="tabbar">
       ${tabBtn('today','●','Сегодня')}
@@ -868,7 +888,7 @@ function renderExerciseCard(exId, dateISO){
         if(f==='height'){
           return `<div class="field">
             <label>${FIELD_META[f].label}</label>
-            <input type="text" data-field="${f}" value="${val ?? ''}" placeholder="напр. 10-15-20">
+            <input type="text" data-field="${f}" value="${val ?? ''}" placeholder="—">
           </div>`;
         }
         return `<div class="field">
@@ -877,7 +897,6 @@ function renderExerciseCard(exId, dateISO){
         </div>`;
       }).join('')}
     </div>
-    ${fieldsOn.includes('height')?'<div class="suggested">В «Высоте» можно вписать несколько чисел через пробел или дефис: 10-15-20</div>':''}
     ${suggested && !saved ? `<div class="suggested">Прошлый результат подставлен автоматически</div>` : ''}
     <div class="save-row">
       ${ex.fields.weight?`<button class="icon-btn ex-rest" data-exid="${exId}" title="Таймер отдыха">⏱</button>`:''}
@@ -1244,14 +1263,6 @@ function openExerciseEditor(exId, weekday){
 /* ---------------- Settings ---------------- */
 /* ---------------- Режим тренера: раздел настроек ---------------- */
 function renderTrainerSection(){
-  const auth = loadTrainerAuth();
-  if(!auth.passHash){
-    return `<div class="card settings-section">
-      <h3>Режим тренера</h3>
-      <p class="trainer-locked-note">Составляй программы для учеников и делись ими кодом с паролем. Чтобы режим тренера не включил кто попало, задай отдельный пароль для него.</p>
-      <button class="btn ghost block" id="trainer-setup">Настроить режим тренера</button>
-    </div>`;
-  }
   if(!trainerUnlocked){
     return `<div class="card settings-section">
       <h3>Режим тренера</h3>
@@ -1279,8 +1290,6 @@ function renderTrainerSection(){
 }
 
 function renderSettings(){
-  const profiles = loadProfiles();
-  const activeId = getActiveProfileId();
   return `
   <div class="card settings-section">
     <h3>Профиль</h3>
@@ -1307,9 +1316,14 @@ function renderSettings(){
   </div>
 
   <div class="card settings-section">
-    <h3>Готовый план</h3>
-    <p style="color:var(--ink-faint);font-size:12.5px;margin:-4px 0 12px;">Применить шаблон заново к дням силовых (текущие упражнения на этих днях будут заменены).</p>
-    <div class="template-list" id="set-template-list"></div>
+    <button type="button" id="plan-toggle" style="width:100%; display:flex; align-items:center; justify-content:space-between; background:none; border:none; padding:0; cursor:pointer;">
+      <h3 style="margin:0;">Готовый план</h3>
+      <span class="icon-btn" style="pointer-events:none;">${settingsPlanOpen?'▲':'▼'}</span>
+    </button>
+    <div id="plan-content" class="${settingsPlanOpen?'':'hidden'}" style="margin-top:12px;">
+      <p style="color:var(--ink-faint);font-size:12.5px;margin:-4px 0 12px;">Применить шаблон заново к дням силовых (текущие упражнения на этих днях будут заменены).</p>
+      <div class="template-list" id="set-template-list"></div>
+    </div>
   </div>
 
   <div class="card settings-section">
@@ -1322,21 +1336,13 @@ function renderSettings(){
 
   ${state.trainerProgram?`<div class="card settings-section">
     <h3>Текущая программа</h3>
-    <div class="row-line"><span class="rl-label">📋 ${state.trainerProgram.name}</span><span class="rl-val">от тренера</span></div>
+    <div class="row-line"><span class="rl-label">📋 Программа тренера: ${state.trainerProgram.name}</span></div>
   </div>`:''}
 
   <div class="card settings-section">
-    <h3>Профили на этом устройстве</h3>
-    <p style="color:var(--ink-faint);font-size:12.5px;margin:-4px 0 12px;">Заведи отдельный профиль для друга, который тренируется с твоего телефона — данные не смешиваются.</p>
-    ${profiles.map(p=>`<div class="row-line">
-      <span class="rl-label">${p.name}${p.id===activeId?' · активен':''}</span>
-      <span style="display:flex; gap:6px;">
-        ${p.id!==activeId?`<button class="btn small ghost profile-switch" data-id="${p.id}">Выбрать</button>`:''}
-        <button class="icon-btn profile-rename" data-id="${p.id}">✎</button>
-        ${profiles.length>1?`<button class="icon-btn profile-delete" data-id="${p.id}">✕</button>`:''}
-      </span>
-    </div>`).join('')}
-    <button class="add-exercise-btn" id="profile-add" style="margin-top:10px;">+ Добавить профиль</button>
+    <h3>Отчёт для тренера</h3>
+    <p style="color:var(--ink-faint);font-size:12.5px;margin:-4px 0 12px;">Собирает стрик, тоннаж по последним неделям и личные рекорды в текст, который можно отправить тренеру.</p>
+    <button class="btn ghost block" id="trainer-report">Сформировать и поделиться</button>
   </div>
 
   <div class="card settings-section">
@@ -1346,12 +1352,14 @@ function renderSettings(){
     <div class="field" style="margin-bottom:10px;"><label>Пароль для кода</label><input id="share-pass" type="password" placeholder="Придумай пароль"></div>
     <button class="btn primary block" id="share-generate">Сгенерировать код</button>
     <textarea id="share-code" rows="3" style="width:100%; margin-top:10px; display:none;" readonly></textarea>
-    <button class="btn ghost block" id="share-copy" style="margin-top:8px; display:none;">Скопировать / Поделиться</button>
+    <button class="btn primary block" id="share-copy" style="margin-top:8px; display:none;">Поделиться ссылкой</button>
+    <button class="btn ghost block" id="share-copy-code" style="margin-top:8px; display:none;">Скопировать код (без ссылки)</button>
+    <p id="share-link-note" style="color:var(--ink-faint);font-size:12px;margin:8px 0 0; display:none;">Ссылка открывает приложение и сама подставляет код в поле импорта — получателю останется только ввести пароль.</p>
 
     <div style="height:1px; background:var(--line); margin:18px 0;"></div>
 
-    <p style="color:var(--ink-faint);font-size:12.5px;margin:0 0 10px;">Есть код от друга? Вставь его и введите тот же пароль.</p>
-    <div class="field" style="margin-bottom:10px;"><label>Код программы</label><textarea id="import-code" rows="3" placeholder="BARBELL1:..."></textarea></div>
+    <p style="color:var(--ink-faint);font-size:12.5px;margin:0 0 10px;">Перешли по ссылке — код подставится сюда сам, останется ввести пароль. Или вставь код от друга вручную.</p>
+    <div class="field" style="margin-bottom:10px;"><label>Код программы</label><textarea id="import-code" rows="3" placeholder="BARBELL1:...">${pendingImportCode||''}</textarea></div>
     <div class="field" style="margin-bottom:12px;"><label>Пароль</label><input id="import-pass" type="password" placeholder="Пароль от друга"></div>
     <button class="btn ghost block" id="import-program">Импортировать программу</button>
   </div>
@@ -1377,6 +1385,9 @@ function bindSettingsEvents(){
   buildSettingsWeekdayPicker('set-training','training');
   buildSettingsWeekdayPicker('set-cardio','cardio');
   buildSettingsTemplateList();
+  document.getElementById('plan-toggle')?.addEventListener('click',()=>{
+    settingsPlanOpen = !settingsPlanOpen; renderTab();
+  });
 
   document.querySelectorAll('.chip-toggle[data-rest]').forEach(chip=>{
     chip.addEventListener('click',()=>{
@@ -1395,33 +1406,6 @@ function bindSettingsEvents(){
     });
   });
 
-  document.querySelectorAll('.profile-switch').forEach(b=>b.addEventListener('click',()=>switchProfile(b.dataset.id)));
-  document.querySelectorAll('.profile-rename').forEach(b=>b.addEventListener('click',()=>{
-    const profiles=loadProfiles();
-    const p=profiles.find(x=>x.id===b.dataset.id);
-    const name=window.prompt('Новое имя профиля:', p.name);
-    if(!name) return;
-    p.name=name.trim(); saveProfiles(profiles); renderTab();
-  }));
-  document.querySelectorAll('.profile-delete').forEach(b=>b.addEventListener('click',()=>{
-    if(!confirm('Удалить профиль и все его данные без возможности восстановления?')) return;
-    let profiles=loadProfiles();
-    profiles=profiles.filter(x=>x.id!==b.dataset.id);
-    saveProfiles(profiles);
-    localStorage.removeItem(stateKeyFor(b.dataset.id));
-    if(getActiveProfileId()===b.dataset.id) switchProfile(profiles[0].id);
-    else renderTab();
-  }));
-  document.getElementById('profile-add')?.addEventListener('click',()=>{
-    const name=window.prompt('Имя профиля (например, имя друга):');
-    if(!name) return;
-    const profiles=loadProfiles();
-    const id=uid();
-    profiles.push({id, name:name.trim()});
-    saveProfiles(profiles);
-    switchProfile(id);
-  });
-
   document.getElementById('share-generate')?.addEventListener('click', async ()=>{
     const pass = document.getElementById('share-pass').value;
     const name = document.getElementById('share-name').value.trim();
@@ -1431,9 +1415,15 @@ function bindSettingsEvents(){
       const box=document.getElementById('share-code');
       box.value=code; box.style.display='block';
       document.getElementById('share-copy').style.display='block';
+      document.getElementById('share-copy-code').style.display='block';
+      document.getElementById('share-link-note').style.display='block';
     }catch(e){ alert('Не получилось создать код.'); }
   });
   document.getElementById('share-copy')?.addEventListener('click',()=>{
+    const code = document.getElementById('share-code').value;
+    shareText('Моя программа BARBELL', buildProgramLink(code));
+  });
+  document.getElementById('share-copy-code')?.addEventListener('click',()=>{
     shareText('Моя программа BARBELL', document.getElementById('share-code').value);
   });
   document.getElementById('import-program')?.addEventListener('click', async ()=>{
@@ -1444,9 +1434,14 @@ function bindSettingsEvents(){
     try{
       const data = await decryptProgram(code, pass);
       applyImportedProgram(data);
+      pendingImportCode = null;
       renderApp();
       showToast('Программа импортирована');
     }catch(e){ alert('Неверный код или пароль.'); }
+  });
+
+  document.getElementById('trainer-report')?.addEventListener('click',()=>{
+    shareText('BARBELL — отчёт для тренера', buildTrainerReport());
   });
 
   document.getElementById('export-backup')?.addEventListener('click', exportBackup);
@@ -1510,20 +1505,10 @@ function buildSettingsTemplateList(){
 
 /* ---------------- Режим тренера: логика ---------------- */
 function bindTrainerEvents(){
-  document.getElementById('trainer-setup')?.addEventListener('click', async ()=>{
-    const p1 = window.prompt('Придумай пароль тренера:');
-    if(!p1) return;
-    const p2 = window.prompt('Повтори пароль:');
-    if(p1!==p2){ alert('Пароли не совпадают.'); return; }
-    saveTrainerAuth({ passHash: await sha256Hex(p1) });
-    trainerUnlocked = true; sessionStorage.setItem('barbell_trainer_unlocked','1');
-    renderTab();
-  });
   document.getElementById('trainer-unlock')?.addEventListener('click', async ()=>{
     const p = window.prompt('Пароль тренера:');
     if(!p) return;
-    const auth = loadTrainerAuth();
-    if(await sha256Hex(p) !== auth.passHash){ alert('Неверный пароль.'); return; }
+    if(await sha256Hex(p) !== TRAINER_PASS_HASH){ alert('Неверный пароль.'); return; }
     trainerUnlocked = true; sessionStorage.setItem('barbell_trainer_unlocked','1');
     renderTab();
   });
@@ -1551,7 +1536,7 @@ function bindTrainerEvents(){
     if(!pass) return;
     try{
       const code = await encryptDraftProgram(draft, pass);
-      await shareText('Программа BARBELL — '+draft.name, code);
+      await shareText('Программа BARBELL — '+draft.name, buildProgramLink(code));
     }catch(e){ alert('Не получилось создать код.'); }
   }));
 }
@@ -1699,22 +1684,6 @@ function openDraftExerciseEditor(draft, drafts, exId, weekday, onDone){
   });
 }
 
-/* ---------------- Профили: переключение ---------------- */
-function switchProfile(id){
-  setActiveProfileId(id);
-  state = load();
-  ui = { tab:'today', today:toISO(new Date()), viewDate:toISO(new Date()), weekStart:startOfWeek(new Date()) };
-  stopRestTimer(false);
-  if(state.onboarded){
-    document.getElementById('onboarding').classList.add('hidden');
-    renderApp();
-  } else {
-    obState = { step:0, gender:null, level:null, training:[], cardio:[], template:null };
-    document.getElementById('app').innerHTML='';
-    startOnboarding();
-  }
-}
-
 /* ---------------- Toast ---------------- */
 function showToast(msg){
   const t=document.createElement('div');
@@ -1723,11 +1692,26 @@ function showToast(msg){
   setTimeout(()=>t.remove(),2200);
 }
 
+/* ---------------- Ссылка с программой ---------------- */
+let pendingImportCode = null;
+function consumeImportLink(){
+  const m = location.hash.match(/^#p=(.+)$/);
+  if(m){
+    try{ pendingImportCode = decodeURIComponent(m[1]); }catch(e){ pendingImportCode = null; }
+    history.replaceState(null, '', location.pathname+location.search);
+  }
+}
+
 /* ---------------- Boot ---------------- */
 function boot(){
   ensureProfiles();
   state = load();
-  if(state.onboarded){ renderApp(); }
+  consumeImportLink();
+  if(state.onboarded){
+    if(pendingImportCode){ ui.tab='settings'; }
+    renderApp();
+    if(pendingImportCode) showToast('Код программы получен по ссылке — введи пароль ниже');
+  }
   else{ startOnboarding(); }
 }
 boot();
