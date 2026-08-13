@@ -1,5 +1,5 @@
-const CACHE = 'barbell-v3';
-const ASSETS = ['./', './index.html', './styles.css', './app.js', './manifest.json', './icons/icon-180.png', './icons/icon-192.png', './icons/icon-512.png'];
+const CACHE = 'barbell-v4';
+const ASSETS = ['./', './index.html', './styles.css', './app.js', './manifest.json'];
 
 self.addEventListener('install', (e) => {
   e.waitUntil(caches.open(CACHE).then(c => c.addAll(ASSETS)));
