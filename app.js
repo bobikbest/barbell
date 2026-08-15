@@ -1,5 +1,10 @@
 /* BARBELL — локальный трекер тренировок. Все данные хранятся только в этом браузере (localStorage). */
 
+/* Необязательный сервис коротких ссылок (см. cloudflare-worker/README.md).
+   Оставь пустой строкой, если не разворачивал воркер — тогда ссылки на программу
+   будут длиннее (код зашит прямо в URL), но всё продолжит работать как есть. */
+const SHORT_LINK_ENDPOINT = '';
+
 const WD = ['Пн','Вт','Ср','Чт','Пт','Сб','Вс'];
 const WD_FULL = ['Понедельник','Вторник','Среда','Четверг','Пятница','Суббота','Воскресенье'];
 const FIELD_META = {
@@ -153,49 +158,85 @@ const EXERCISE_CATALOG = {
   'Грудь': [
     {name:'Жим лёжа', fields:{weight:1,reps:1,sets:1}},
     {name:'Жим гантелей на наклонной скамье', fields:{weight:1,reps:1,sets:1,height:1}},
+    {name:'Жим гантелей на горизонтальной скамье', fields:{weight:1,reps:1,sets:1}},
+    {name:'Жим на наклонной скамье вниз головой', fields:{weight:1,reps:1,sets:1,height:1}},
     {name:'Разведение гантелей лёжа', fields:{weight:1,reps:1,sets:1}},
+    {name:'Сведение рук в кроссовере', fields:{weight:1,reps:1,sets:1}},
     {name:'Отжимания на брусьях', fields:{reps:1,sets:1}},
+    {name:'Отжимания от пола', fields:{reps:1,sets:1}},
+    {name:'Пуловер с гантелей', fields:{weight:1,reps:1,sets:1}},
     {name:'Жим в тренажёре Смита', fields:{weight:1,reps:1,sets:1}},
+    {name:'Жим в тренажёре (баттерфляй)', fields:{weight:1,reps:1,sets:1}},
   ],
   'Спина': [
     {name:'Становая тяга', fields:{weight:1,reps:1,sets:1}},
+    {name:'Румынская становая тяга', fields:{weight:1,reps:1,sets:1}},
     {name:'Подтягивания', fields:{reps:1,sets:1}},
+    {name:'Подтягивания узким хватом', fields:{reps:1,sets:1}},
     {name:'Тяга штанги в наклоне', fields:{weight:1,reps:1,sets:1}},
+    {name:'Тяга Т-грифа', fields:{weight:1,reps:1,sets:1}},
     {name:'Тяга верхнего блока', fields:{weight:1,reps:1,sets:1}},
+    {name:'Тяга верхнего блока узким хватом', fields:{weight:1,reps:1,sets:1}},
+    {name:'Тяга нижнего блока сидя', fields:{weight:1,reps:1,sets:1}},
     {name:'Тяга гантели одной рукой', fields:{weight:1,reps:1,sets:1}},
+    {name:'Гиперэкстензия', fields:{weight:1,reps:1,sets:1}},
+    {name:'Шраги со штангой', fields:{weight:1,reps:1,sets:1}},
   ],
   'Плечи': [
     {name:'Жим стоя', fields:{weight:1,reps:1,sets:1}},
     {name:'Жим гантелей сидя', fields:{weight:1,reps:1,sets:1}},
+    {name:'Жим Арнольда', fields:{weight:1,reps:1,sets:1}},
     {name:'Разведение гантелей в стороны', fields:{weight:1,reps:1,sets:1}},
+    {name:'Разведение в стороны в кроссовере', fields:{weight:1,reps:1,sets:1}},
     {name:'Махи гантелями в наклоне', fields:{weight:1,reps:1,sets:1}},
+    {name:'Тяга штанги к подбородку', fields:{weight:1,reps:1,sets:1}},
+    {name:'Обратная бабочка (задняя дельта)', fields:{weight:1,reps:1,sets:1}},
   ],
   'Руки': [
     {name:'Подъём штанги на бицепс', fields:{weight:1,reps:1,sets:1}},
+    {name:'Подъём EZ-штанги на бицепс', fields:{weight:1,reps:1,sets:1}},
     {name:'Сгибания на бицепс с гантелями', fields:{weight:1,reps:1,sets:1}},
+    {name:'Молотки с гантелями', fields:{weight:1,reps:1,sets:1}},
+    {name:'Сгибания на скамье Скотта', fields:{weight:1,reps:1,sets:1}},
     {name:'Французский жим лёжа', fields:{weight:1,reps:1,sets:1}},
+    {name:'Французский жим сидя', fields:{weight:1,reps:1,sets:1}},
     {name:'Разгибания на трицепс на блоке', fields:{weight:1,reps:1,sets:1}},
+    {name:'Разгибание руки с гантелью из-за головы', fields:{weight:1,reps:1,sets:1}},
     {name:'Отжимания узким хватом', fields:{reps:1,sets:1}},
+    {name:'Сгибания запястий со штангой', fields:{weight:1,reps:1,sets:1}},
   ],
   'Ноги': [
     {name:'Приседания со штангой', fields:{weight:1,reps:1,sets:1}},
+    {name:'Приседания в тренажёре Смита', fields:{weight:1,reps:1,sets:1}},
+    {name:'Фронтальные приседания', fields:{weight:1,reps:1,sets:1}},
     {name:'Румынская тяга', fields:{weight:1,reps:1,sets:1}},
     {name:'Жим ногами', fields:{weight:1,reps:1,sets:1}},
+    {name:'Гакк-приседания', fields:{weight:1,reps:1,sets:1}},
     {name:'Выпады с гантелями', fields:{weight:1,reps:1,sets:1}},
+    {name:'Болгарские выпады', fields:{weight:1,reps:1,sets:1}},
+    {name:'Разгибание ног в тренажёре', fields:{weight:1,reps:1,sets:1}},
     {name:'Сгибание ног в тренажёре', fields:{weight:1,reps:1,sets:1}},
     {name:'Подъём на носки стоя', fields:{weight:1,reps:1,sets:1}},
+    {name:'Подъём на носки сидя', fields:{weight:1,reps:1,sets:1}},
   ],
   'Ягодицы': [
     {name:'Ягодичный мост со штангой', fields:{weight:1,reps:1,sets:1}},
     {name:'Приседания сумо', fields:{weight:1,reps:1,sets:1}},
     {name:'Отведение ноги в кроссовере', fields:{weight:1,reps:1,sets:1}},
+    {name:'Отведение ноги в тренажёре', fields:{weight:1,reps:1,sets:1}},
     {name:'Тяга на прямых ногах', fields:{weight:1,reps:1,sets:1}},
+    {name:'Ослик (подъём таза лёжа на скамье)', fields:{weight:1,reps:1,sets:1}},
+    {name:'Шаги на платформу с гантелями', fields:{weight:1,reps:1,sets:1,height:1}},
   ],
   'Кор': [
     {name:'Планка', fields:{duration:1,sets:1}},
     {name:'Боковая планка', fields:{duration:1,sets:1}},
     {name:'Скручивания', fields:{reps:1,sets:1}},
+    {name:'Обратные скручивания', fields:{reps:1,sets:1}},
     {name:'Подъём ног в висе', fields:{reps:1,sets:1}},
+    {name:'Скручивания на блоке', fields:{weight:1,reps:1,sets:1}},
+    {name:'Русские скручивания', fields:{reps:1,sets:1}},
+    {name:'Роллаут с колёсиком', fields:{reps:1,sets:1}},
   ],
   'Кардио': [
     {name:'Бег', fields:{duration:1,distance:1}},
@@ -203,12 +244,22 @@ const EXERCISE_CATALOG = {
     {name:'Скакалка', fields:{duration:1,reps:1}},
     {name:'Гребля', fields:{duration:1,distance:1}},
     {name:'Плавание', fields:{duration:1,distance:1}},
+    {name:'Эллипсоид', fields:{duration:1,distance:1}},
+    {name:'Ходьба в горку (наклон)', fields:{duration:1,distance:1,height:1}},
+    {name:'Степпер', fields:{duration:1}},
   ],
   'Функциональные': [
     {name:'Берпи', fields:{reps:1,sets:1,duration:1}},
     {name:'Взятие штанги на грудь', fields:{weight:1,reps:1,sets:1}},
     {name:'Толчок гири', fields:{weight:1,reps:1,sets:1}},
+    {name:'Рывок гири', fields:{weight:1,reps:1,sets:1}},
     {name:'Прыжки на тумбу', fields:{reps:1,sets:1,height:1}},
+    {name:'Приседания со штангой над головой', fields:{weight:1,reps:1,sets:1}},
+    {name:'Толчок штанги (клин-энд-джерк)', fields:{weight:1,reps:1,sets:1}},
+    {name:'Махи гирей (свинг)', fields:{weight:1,reps:1,sets:1}},
+    {name:'Ходьба фермера', fields:{weight:1,distance:1}},
+    {name:'Удары по покрышке кувалдой', fields:{reps:1,sets:1,duration:1}},
+    {name:'Баттл-роупс', fields:{duration:1,sets:1}},
   ],
 };
 
@@ -218,11 +269,15 @@ const RECORD_SUGGESTIONS = [
   {name:'Присед со штангой', unit:'кг'},
   {name:'Жим лёжа', unit:'кг'},
   {name:'Жим стоя', unit:'кг'},
+  {name:'Румынская становая тяга', unit:'кг'},
   {name:'Ягодичный мост со штангой', unit:'кг'},
   {name:'Жим гантелей в наклоне', unit:'кг'},
+  {name:'Тяга штанги в наклоне', unit:'кг'},
   {name:'Подтягивания', unit:'повт'},
   {name:'Отжимания', unit:'повт'},
+  {name:'Отжимания на брусьях', unit:'повт'},
   {name:'Планка', unit:'сек'},
+  {name:'Бег на 1 км', unit:'сек'},
 ];
 
 /* ---------------- Профили на устройстве ---------------- */
@@ -257,7 +312,7 @@ function ensureProfiles(){
    В коде хранится только его SHA-256 хэш, не сам пароль.
    Это защита «от чужого пальца», а не криптографическая защита от того, кто открыл код в консоли. */
 const TRAINER_DRAFTS_KEY = 'barbell_trainer_drafts_v1';
-const TRAINER_PASS_HASH = '83eb7f4614195bb65c53bb72edd6fcf8270706aae25b4b5a8b69e6b159a59ca';
+const TRAINER_PASS_HASH = '83eb7f4614195bb65c53bb72edd6fcf8270706aae25b4b5a8b69e6b159a59caa';
 let trainerUnlocked = sessionStorage.getItem('barbell_trainer_unlocked')==='1';
 
 async function sha256Hex(text){
@@ -530,7 +585,20 @@ async function decryptProgram(code, password){
 }
 /* Ссылка, которая открывает приложение и сразу подставляет код в поле импорта —
    пароль в ссылку не зашивается (пароль сообщается получателю отдельно). */
-function buildProgramLink(code){
+/* Ссылка, которая открывает приложение и сразу подставляет код в поле импорта —
+   пароль в ссылку не зашивается (пароль сообщается получателю отдельно).
+   Если задан SHORT_LINK_ENDPOINT (см. начало файла) — пробуем получить короткую ссылку
+   через воркер; если он недоступен или не настроен, откатываемся на длинную с кодом в самом URL. */
+async function buildProgramLink(code){
+  if(SHORT_LINK_ENDPOINT){
+    try{
+      const res = await fetch(SHORT_LINK_ENDPOINT + '/save', { method:'POST', body: code });
+      if(res.ok){
+        const {id} = await res.json();
+        return `${location.origin}${location.pathname}#s=${id}`;
+      }
+    }catch(e){ /* сеть недоступна или воркер не настроен — используем длинную ссылку ниже */ }
+  }
   return `${location.origin}${location.pathname}#p=${encodeURIComponent(code)}`;
 }
 function applyImportedProgram(data){
@@ -1419,9 +1487,9 @@ function bindSettingsEvents(){
       document.getElementById('share-link-note').style.display='block';
     }catch(e){ alert('Не получилось создать код.'); }
   });
-  document.getElementById('share-copy')?.addEventListener('click',()=>{
+  document.getElementById('share-copy')?.addEventListener('click', async ()=>{
     const code = document.getElementById('share-code').value;
-    shareText('Моя программа BARBELL', buildProgramLink(code));
+    shareText('Моя программа BARBELL', await buildProgramLink(code));
   });
   document.getElementById('share-copy-code')?.addEventListener('click',()=>{
     shareText('Моя программа BARBELL', document.getElementById('share-code').value);
@@ -1536,7 +1604,7 @@ function bindTrainerEvents(){
     if(!pass) return;
     try{
       const code = await encryptDraftProgram(draft, pass);
-      await shareText('Программа BARBELL — '+draft.name, buildProgramLink(code));
+      await shareText('Программа BARBELL — '+draft.name, await buildProgramLink(code));
     }catch(e){ alert('Не получилось создать код.'); }
   }));
 }
@@ -1695,18 +1763,30 @@ function showToast(msg){
 /* ---------------- Ссылка с программой ---------------- */
 let pendingImportCode = null;
 function consumeImportLink(){
-  const m = location.hash.match(/^#p=(.+)$/);
-  if(m){
-    try{ pendingImportCode = decodeURIComponent(m[1]); }catch(e){ pendingImportCode = null; }
+  const mp = location.hash.match(/^#p=(.+)$/);
+  const ms = location.hash.match(/^#s=(.+)$/);
+  if(mp){
+    try{ pendingImportCode = decodeURIComponent(mp[1]); }catch(e){ pendingImportCode = null; }
     history.replaceState(null, '', location.pathname+location.search);
+    return null;
   }
+  if(ms && SHORT_LINK_ENDPOINT){
+    const id = ms[1];
+    history.replaceState(null, '', location.pathname+location.search);
+    // Возвращаем промис — короткую ссылку нужно сначала развернуть через воркер.
+    return fetch(SHORT_LINK_ENDPOINT + '/get/' + encodeURIComponent(id))
+      .then(res => res.ok ? res.text() : null)
+      .then(code => { if(code) pendingImportCode = code; })
+      .catch(()=>{ /* воркер недоступен — ссылка просто не раскроется, ничего не ломаем */ });
+  }
+  return null;
 }
 
 /* ---------------- Boot ---------------- */
-function boot(){
+async function boot(){
   ensureProfiles();
   state = load();
-  consumeImportLink();
+  await consumeImportLink();
   if(state.onboarded){
     if(pendingImportCode){ ui.tab='settings'; }
     renderApp();
