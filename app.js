@@ -314,6 +314,7 @@ function ensureProfiles(){
 const TRAINER_DRAFTS_KEY = 'barbell_trainer_drafts_v1';
 const TRAINER_PASS_HASH = '83eb7f4614195bb65c53bb72edd6fcf8270706aae25b4b5a8b69e6b159a59caa';
 let trainerUnlocked = sessionStorage.getItem('barbell_trainer_unlocked')==='1';
+let trainerPortalMode = false; // true, если зашли по отдельной ссылке .../#trainer
 
 async function sha256Hex(text){
   const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(text));
@@ -1584,6 +1585,9 @@ function bindTrainerEvents(){
     trainerUnlocked = false; sessionStorage.removeItem('barbell_trainer_unlocked');
     renderTab();
   });
+  bindDraftEvents(()=>renderTab());
+}
+function bindDraftEvents(rerender){
   document.getElementById('draft-add')?.addEventListener('click',()=>{
     const name = window.prompt('Имя программы (например, «Программа для Марии»):');
     if(!name) return;
@@ -1596,7 +1600,7 @@ function bindTrainerEvents(){
   document.querySelectorAll('.draft-delete').forEach(b=>b.addEventListener('click',()=>{
     if(!confirm('Удалить эту программу-черновик без возможности восстановления?')) return;
     saveDrafts(loadDrafts().filter(d=>d.id!==b.dataset.did));
-    renderTab();
+    rerender();
   }));
   document.querySelectorAll('.draft-export').forEach(b=>b.addEventListener('click', async ()=>{
     const draft = loadDrafts().find(d=>d.id===b.dataset.did); if(!draft) return;
@@ -1783,10 +1787,78 @@ function consumeImportLink(){
 }
 
 /* ---------------- Boot ---------------- */
+async /* ---------------- Отдельный вход для тренера (не спрятан в настройках) ----------------
+   Отдаётся тренеру отдельной ссылкой вида .../#trainer — вместо личного трекера
+   он сразу видит вход в свой кабинет, без намёка на чужой фитнес-дневник внутри. */
+function renderTrainerGate(){
+  const app = document.getElementById('app');
+  app.innerHTML = `
+    <div id="trainer-gate-wrap" style="min-height:100vh; display:flex; align-items:center; padding:calc(var(--safe-t) + 16px) 18px calc(var(--safe-b) + 16px);">
+      <div class="onb-card" style="text-align:center; margin:0 auto;">
+        <div class="eyebrow">BARBELL · Кабинет тренера</div>
+        <h1 style="font-size:26px; margin-bottom:10px;">Вход для тренера</h1>
+        <p class="onb-sub">Составляй программы для учеников и делись ими без сторонних сервисов — прямо отсюда.</p>
+        <div class="field" style="margin:18px 0 14px; text-align:left;">
+          <label>Пароль тренера</label>
+          <input type="password" id="trainer-gate-pass" placeholder="Введи пароль" autocomplete="off">
+        </div>
+        <button class="btn primary block" id="trainer-gate-submit">Войти</button>
+        <p id="trainer-gate-error" style="color:var(--danger); font-size:12.5px; margin-top:10px; display:none;">Неверный пароль.</p>
+      </div>
+    </div>`;
+  const submit = async ()=>{
+    const pass = document.getElementById('trainer-gate-pass').value;
+    if(!pass) return;
+    if(await sha256Hex(pass) !== TRAINER_PASS_HASH){
+      document.getElementById('trainer-gate-error').style.display='block';
+      return;
+    }
+    trainerUnlocked = true; sessionStorage.setItem('barbell_trainer_unlocked','1');
+    renderTrainerPortal();
+  };
+  document.getElementById('trainer-gate-submit').addEventListener('click', submit);
+  document.getElementById('trainer-gate-pass').addEventListener('keydown', e=>{ if(e.key==='Enter') submit(); });
+}
+function renderTrainerPortal(){
+  const app = document.getElementById('app');
+  const drafts = loadDrafts();
+  app.innerHTML = `
+    <div class="topbar">
+      <div><div class="brand">BAR<b>BELL</b></div><div class="sub">Кабинет тренера</div></div>
+    </div>
+    <div class="card settings-section">
+      <p class="trainer-locked-note">Составляй программы для учеников здесь и отправляй ссылку с паролем — ученик увидит программу у себя в приложении после импорта.</p>
+      <div class="draft-list">
+        ${drafts.map(d=>`<div class="draft-card" data-did="${d.id}">
+          <div class="d-name">${d.name}</div>
+          <div class="d-actions">
+            <button class="btn small ghost draft-edit" data-did="${d.id}">Редактировать</button>
+            <button class="btn small primary draft-export" data-did="${d.id}">Экспорт для ученика</button>
+            <button class="btn small danger draft-delete" data-did="${d.id}">Удалить</button>
+          </div>
+        </div>`).join('')}
+      </div>
+      <button class="add-exercise-btn" id="draft-add" style="margin-top:6px;">+ Новая программа для ученика</button>
+      <button class="btn ghost block" id="trainer-lock" style="margin-top:14px;">Выйти</button>
+    </div>`;
+  bindDraftEvents(renderTrainerPortal);
+  document.getElementById('trainer-lock').addEventListener('click', ()=>{
+    trainerUnlocked = false; sessionStorage.removeItem('barbell_trainer_unlocked');
+    renderTrainerGate();
+  });
+}
+
 async function boot(){
   ensureProfiles();
   state = load();
   await consumeImportLink();
+  if(location.hash === '#trainer' || trainerPortalMode){
+    trainerPortalMode = true;
+    if(location.hash === '#trainer') history.replaceState(null, '', location.pathname+location.search);
+    if(trainerUnlocked) renderTrainerPortal();
+    else renderTrainerGate();
+    return;
+  }
   if(state.onboarded){
     if(pendingImportCode){ ui.tab='settings'; }
     renderApp();
