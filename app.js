@@ -510,19 +510,12 @@ function buildTrainerReport(){
    Важное честное уточнение: код защищает саму программу от посторонних, у которых нет пароля.
    Он не «прячет» исходники приложения — репозиторий на GitHub публичный, и это неизбежно
    для любого статического клиентского приложения. */
-function buildProgramExportObject(name, includeRecords){
+function buildProgramExportObject(name){
   const usedIds = new Set();
   Object.values(state.dayExercises).forEach(arr=>arr.forEach(id=>usedIds.add(id)));
   const exercises={};
   usedIds.forEach(id=>{ if(state.exercises[id]) exercises[id]=state.exercises[id]; });
-  const obj = { v:2, name:name||null, schedule:state.schedule, dayExercises:state.dayExercises, exercises, planTemplateId:state.planTemplateId };
-  if(includeRecords && state.records){
-    obj.records = Object.fromEntries(Object.entries(state.records).map(([id,r])=>[id, {
-      name:r.name, unit:r.unit,
-      best:(r.entries||[]).reduce((m,e)=>(m===null||e.value>m)?e.value:m, null)
-    }]));
-  }
-  return obj;
+  return { v:2, name:name||null, schedule:state.schedule, dayExercises:state.dayExercises, exercises, planTemplateId:state.planTemplateId };
 }
 function buildDraftExportObject(draft){
   return { v:2, name:draft.name||null, schedule:draft.schedule, dayExercises:draft.dayExercises, exercises:draft.exercises, planTemplateId:null };
@@ -582,8 +575,8 @@ async function decryptPayload(code, password){
   const jsonBytes = compressed ? await gunzipBytes(plainBytes) : plainBytes;
   return JSON.parse(new TextDecoder().decode(jsonBytes));
 }
-async function encryptProgram(password, name, includeRecords){
-  return encryptPayload(buildProgramExportObject(name, includeRecords), password);
+async function encryptProgram(password, name){
+  return encryptPayload(buildProgramExportObject(name), password);
 }
 async function encryptDraftProgram(draft, password){
   return encryptPayload(buildDraftExportObject(draft), password);
@@ -609,27 +602,6 @@ async function buildProgramLink(code){
   }
   return `${location.origin}${location.pathname}#p=${encodeURIComponent(code)}`;
 }
-/* Понимает то, что человек вставил в поле импорта: полную ссылку (#p=/#s=) или голый код. */
-function extractPastedProgramInput(text){
-  text = (text||'').trim();
-  if(!text) return null;
-  const mp = text.match(/#p=([^&\s]+)/);
-  if(mp){ try{ return { code: decodeURIComponent(mp[1]) }; }catch(e){ return null; } }
-  const ms = text.match(/#s=([^&\s]+)/);
-  if(ms) return { shortId: ms[1] };
-  if(text.startsWith('BARBELL1:') || text.startsWith('BARBELL2:')) return { code: text };
-  return null;
-}
-async function resolvePastedCode(parsed){
-  if(parsed.code) return parsed.code;
-  if(parsed.shortId){
-    if(!SHORT_LINK_ENDPOINT) throw new Error('short-link-not-configured');
-    const res = await fetch(SHORT_LINK_ENDPOINT + '/get/' + encodeURIComponent(parsed.shortId));
-    if(!res.ok) throw new Error('short-link-not-found');
-    return await res.text();
-  }
-  throw new Error('bad-format');
-}
 function applyImportedProgram(data){
   const idMap={};
   const newExercises={};
@@ -648,7 +620,6 @@ function applyImportedProgram(data){
   state.planTemplateId = data.planTemplateId || null;
   state.trainerProgram = { name: data.name || 'Без названия', importedAt: toISO(new Date()) };
   save();
-  return data.records || null;
 }
 
 /* ---------------- Резервная копия (без пароля, для себя) ---------------- */
@@ -1445,23 +1416,20 @@ function renderSettings(){
 
   <div class="card settings-section">
     <h3>Поделиться программой</h3>
-    <p style="color:var(--ink-faint);font-size:12.5px;margin:-4px 0 12px;">Экспортирует расписание и упражнения (без истории тренировок) в защищённую паролем ссылку. Без пароля ссылка не откроется. Учти: сам код приложения открыт в публичном репозитории на GitHub — это защищает именно программу, а не приложение целиком.</p>
+    <p style="color:var(--ink-faint);font-size:12.5px;margin:-4px 0 12px;">Экспортирует расписание и упражнения (без личных результатов) в код, зашифрованный паролем. Без пароля код не читается и не импортируется. Учти: сам код приложения открыт в публичном репозитории на GitHub — это защищает именно код программы, а не приложение целиком.</p>
     <div class="field" style="margin-bottom:10px;"><label>Название программы (покажется у получателя)</label><input id="share-name" type="text" placeholder="Например, Моя программа"></div>
-    <div class="field" style="margin-bottom:10px;"><label>Пароль для ссылки</label><input id="share-pass" type="password" placeholder="Придумай пароль"></div>
-    <div class="chip-row" style="margin:0 0 4px;">
-      <button class="chip-toggle" id="share-include-records">Также поделиться личными рекордами</button>
-    </div>
-    <p style="color:var(--ink-faint);font-size:11.5px;margin:0 0 12px;">Выключено по умолчанию — обычно в ссылке нет ничего, кроме программы: ни истории тренировок, ни весов.</p>
-    <button class="btn primary block" id="share-generate">Создать ссылку</button>
-    <p id="share-result-note" style="color:var(--ink-faint);font-size:12px;margin:10px 0 0; display:none;">Ссылка открывает приложение и сама подставляет её в поле импорта ниже — получателю останется только ввести пароль.</p>
-    <button class="btn primary block" id="share-copy" style="margin-top:10px; display:none;">Поделиться ссылкой</button>
-  </div>
+    <div class="field" style="margin-bottom:10px;"><label>Пароль для кода</label><input id="share-pass" type="password" placeholder="Придумай пароль"></div>
+    <button class="btn primary block" id="share-generate">Сгенерировать код</button>
+    <textarea id="share-code" rows="3" style="width:100%; margin-top:10px; display:none;" readonly></textarea>
+    <button class="btn primary block" id="share-copy" style="margin-top:8px; display:none;">Поделиться ссылкой</button>
+    <button class="btn ghost block" id="share-copy-code" style="margin-top:8px; display:none;">Скопировать код (без ссылки)</button>
+    <p id="share-link-note" style="color:var(--ink-faint);font-size:12px;margin:8px 0 0; display:none;">Ссылка открывает приложение и сама подставляет код в поле импорта — получателю останется только ввести пароль.</p>
 
-  <div class="card settings-section">
-    <h3>Есть программа от друга или тренера?</h3>
-    <p style="color:var(--ink-faint);font-size:12.5px;margin:0 0 10px;">Перешли по ссылке — вставится сюда сама, останется ввести пароль. Можно вставить и ссылку целиком, и голый код — приложение само разберётся.</p>
-    <div class="field" style="margin-bottom:10px;"><label>Ссылка или код</label><textarea id="import-code" rows="3" placeholder="https://... или BARBELL1:...">${pendingImportCode||''}</textarea></div>
-    <div class="field" style="margin-bottom:12px;"><label>Пароль</label><input id="import-pass" type="password" placeholder="Пароль от отправителя"></div>
+    <div style="height:1px; background:var(--line); margin:18px 0;"></div>
+
+    <p style="color:var(--ink-faint);font-size:12.5px;margin:0 0 10px;">Перешли по ссылке — код подставится сюда сам, останется ввести пароль. Или вставь код от друга вручную.</p>
+    <div class="field" style="margin-bottom:10px;"><label>Код программы</label><textarea id="import-code" rows="3" placeholder="BARBELL1:...">${pendingImportCode||''}</textarea></div>
+    <div class="field" style="margin-bottom:12px;"><label>Пароль</label><input id="import-pass" type="password" placeholder="Пароль от друга"></div>
     <button class="btn ghost block" id="import-program">Импортировать программу</button>
   </div>
 
@@ -1507,42 +1475,38 @@ function bindSettingsEvents(){
     });
   });
 
-  let shareIncludeRecords = false;
-  document.getElementById('share-include-records')?.addEventListener('click',(e)=>{
-    shareIncludeRecords = !shareIncludeRecords;
-    e.target.classList.toggle('on', shareIncludeRecords);
-  });
   document.getElementById('share-generate')?.addEventListener('click', async ()=>{
     const pass = document.getElementById('share-pass').value;
     const name = document.getElementById('share-name').value.trim();
     if(!pass){ alert('Сначала придумай пароль.'); return; }
     try{
-      const code = await encryptProgram(pass, name, shareIncludeRecords);
-      const link = await buildProgramLink(code);
-      const btn = document.getElementById('share-copy');
-      btn.dataset.link = link;
-      btn.style.display='block';
-      document.getElementById('share-result-note').style.display='block';
-      shareText('Моя программа BARBELL', link);
-    }catch(e){ alert('Не получилось создать ссылку.'); }
+      const code = await encryptProgram(pass, name);
+      const box=document.getElementById('share-code');
+      box.value=code; box.style.display='block';
+      document.getElementById('share-copy').style.display='block';
+      document.getElementById('share-copy-code').style.display='block';
+      document.getElementById('share-link-note').style.display='block';
+    }catch(e){ alert('Не получилось создать код.'); }
   });
-  document.getElementById('share-copy')?.addEventListener('click', (e)=>{
-    shareText('Моя программа BARBELL', e.target.dataset.link||'');
+  document.getElementById('share-copy')?.addEventListener('click', async ()=>{
+    const code = document.getElementById('share-code').value;
+    shareText('Моя программа BARBELL', await buildProgramLink(code));
+  });
+  document.getElementById('share-copy-code')?.addEventListener('click',()=>{
+    shareText('Моя программа BARBELL', document.getElementById('share-code').value);
   });
   document.getElementById('import-program')?.addEventListener('click', async ()=>{
-    const raw = document.getElementById('import-code').value;
+    const code = document.getElementById('import-code').value.trim();
     const pass = document.getElementById('import-pass').value;
-    const parsed = extractPastedProgramInput(raw);
-    if(!parsed || !pass){ alert('Вставь ссылку или код от отправителя и введи пароль.'); return; }
+    if(!code || !pass) return;
     if(!confirm('Импорт заменит упражнения на днях силовых/кардио текущим расписанием из кода друга. Продолжить?')) return;
     try{
-      const code = await resolvePastedCode(parsed);
       const data = await decryptProgram(code, pass);
-      const records = applyImportedProgram(data);
+      applyImportedProgram(data);
       pendingImportCode = null;
       renderApp();
-      showToast(records ? 'Программа импортирована — рекорды отправителя тоже приложены' : 'Программа импортирована');
-    }catch(e){ alert('Неверная ссылка/код или пароль.'); }
+      showToast('Программа импортирована');
+    }catch(e){ alert('Неверный код или пароль.'); }
   });
 
   document.getElementById('trainer-report')?.addEventListener('click',()=>{
@@ -1840,7 +1804,6 @@ function renderTrainerGate(){
         </div>
         <button class="btn primary block" id="trainer-gate-submit">Войти</button>
         <p id="trainer-gate-error" style="color:var(--danger); font-size:12.5px; margin-top:10px; display:none;">Неверный пароль.</p>
-        <button class="btn ghost block" id="trainer-gate-back" style="margin-top:14px; font-size:12.5px;">Это не моё — вернуться</button>
       </div>
     </div>`;
   const submit = async ()=>{
@@ -1855,11 +1818,6 @@ function renderTrainerGate(){
   };
   document.getElementById('trainer-gate-submit').addEventListener('click', submit);
   document.getElementById('trainer-gate-pass').addEventListener('keydown', e=>{ if(e.key==='Enter') submit(); });
-  document.getElementById('trainer-gate-back').addEventListener('click', ()=>{
-    localStorage.removeItem(ROLE_KEY);
-    trainerPortalMode = false;
-    if(state.onboarded){ renderApp(); } else { renderEntryChooser(); }
-  });
 }
 function renderTrainerPortal(){
   const app = document.getElementById('app');
@@ -1890,43 +1848,12 @@ function renderTrainerPortal(){
   });
 }
 
-/* ---------------- Выбор роли при первом запуске (упрощённый вход для тренеров) ----------------
-   Пока устройство ещё не прошло обычный онбординг ученика, спрашиваем один раз, кто им пользуется.
-   Выбор "Я тренер" запоминается в localStorage — при следующих открытиях сразу ведём в кабинет тренера,
-   без переходов по ссылкам с #trainer. */
-const ROLE_KEY = 'barbell_role';
-function renderEntryChooser(){
-  const app = document.getElementById('app');
-  app.innerHTML = `
-    <div style="min-height:100vh; display:flex; align-items:center; padding:calc(var(--safe-t) + 16px) 18px calc(var(--safe-b) + 16px);">
-      <div class="onb-card" style="text-align:center; margin:0 auto;">
-        <div class="eyebrow">BARBELL</div>
-        <h1 style="font-size:26px; margin-bottom:10px;">Кто будет пользоваться?</h1>
-        <p class="onb-sub">Это решает, что покажем дальше. Можно выбрать заново — просто открой сайт в другом браузере/устройстве.</p>
-        <div class="choice-grid one" style="margin-top:6px;">
-          <button class="choice-tile row" id="role-athlete"><span><span class="tile-glyph">🏋️</span> Я тренируюсь сам</span></button>
-          <button class="choice-tile row" id="role-trainer" style="margin-top:10px;"><span><span class="tile-glyph">📋</span> Я тренер</span></button>
-        </div>
-      </div>
-    </div>`;
-  document.getElementById('role-athlete').addEventListener('click', ()=>{
-    app.innerHTML='';
-    startOnboarding();
-  });
-  document.getElementById('role-trainer').addEventListener('click', ()=>{
-    localStorage.setItem(ROLE_KEY, 'trainer');
-    trainerPortalMode = true;
-    if(trainerUnlocked) renderTrainerPortal(); else renderTrainerGate();
-  });
-}
-
 async function boot(){
   ensureProfiles();
   state = load();
   await consumeImportLink();
   if(location.hash === '#trainer' || trainerPortalMode){
     trainerPortalMode = true;
-    localStorage.setItem(ROLE_KEY, 'trainer');
     if(location.hash === '#trainer') history.replaceState(null, '', location.pathname+location.search);
     if(trainerUnlocked) renderTrainerPortal();
     else renderTrainerGate();
@@ -1937,11 +1864,7 @@ async function boot(){
     renderApp();
     if(pendingImportCode) showToast('Код программы получен по ссылке — введи пароль ниже');
   }
-  else if(localStorage.getItem(ROLE_KEY)==='trainer'){
-    trainerPortalMode = true;
-    if(trainerUnlocked) renderTrainerPortal(); else renderTrainerGate();
-  }
-  else{ renderEntryChooser(); }
+  else{ startOnboarding(); }
 }
 boot();
 
