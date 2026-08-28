@@ -1924,7 +1924,17 @@ async function boot(){
   ensureProfiles();
   state = load();
   await consumeImportLink();
-  if(location.hash === '#trainer' || trainerPortalMode){
+  if(state.onboarded){
+    // Уже настроенный трекер атлета — не даём случайному/залипшему #trainer в адресе
+    // перехватить запуск. Вход в режим тренера с этого же устройства — через Настройки, как раньше.
+    if(location.hash === '#trainer') history.replaceState(null, '', location.pathname+location.search);
+    if(pendingImportCode){ ui.tab='settings'; }
+    renderApp();
+    if(pendingImportCode) showToast('Код программы получен по ссылке — введи пароль ниже');
+    return;
+  }
+  // Устройство ещё не прошло обычный онбординг — здесь отдельный вход для тренера уместен.
+  if(location.hash === '#trainer' || localStorage.getItem(ROLE_KEY)==='trainer'){
     trainerPortalMode = true;
     localStorage.setItem(ROLE_KEY, 'trainer');
     if(location.hash === '#trainer') history.replaceState(null, '', location.pathname+location.search);
@@ -1932,16 +1942,7 @@ async function boot(){
     else renderTrainerGate();
     return;
   }
-  if(state.onboarded){
-    if(pendingImportCode){ ui.tab='settings'; }
-    renderApp();
-    if(pendingImportCode) showToast('Код программы получен по ссылке — введи пароль ниже');
-  }
-  else if(localStorage.getItem(ROLE_KEY)==='trainer'){
-    trainerPortalMode = true;
-    if(trainerUnlocked) renderTrainerPortal(); else renderTrainerGate();
-  }
-  else{ renderEntryChooser(); }
+  renderEntryChooser();
 }
 boot();
 
